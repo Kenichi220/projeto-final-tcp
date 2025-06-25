@@ -8,7 +8,6 @@ public class Midi {
     private Synthesizer synthesizer;
     private MidiChannel channel;
 
-    //Essa parte de uso da midi o chat me ajudou ent n sei como que funciona direito
     public Midi() throws MidiUnavailableException {
         //Pega o sintetizador
         synthesizer = MidiSystem.getSynthesizer();

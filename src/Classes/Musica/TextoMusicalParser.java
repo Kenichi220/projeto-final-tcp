@@ -52,13 +52,13 @@ public class TextoMusicalParser {
     }
 
     public void stop() {
-        tocando = false; // Sinaliza para a thread parar
-        pausado = false; // Garante que saia do estado de pausa
+        tocando = false;
+        pausado = false;
 
         // Espera um pouco para a thread terminar, se necessário
         if (threadReproducao != null) {
             try {
-                threadReproducao.join(100); // Espera no máximo 100ms
+                threadReproducao.join(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
