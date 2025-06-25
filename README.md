@@ -16,4 +16,6 @@ No IntelliJ
 
   -> Run --> Edit Configurations --> Modify Options --> Add VM Options
   
-  -> Cole o seguinte: --module-path <seu diretorio lib do JavaFX> --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.swing,javafx.web 
+  -> Cole o seguinte: 
+
+--module-path <seu diretorio lib do JavaFX> --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.swing,javafx.web 
