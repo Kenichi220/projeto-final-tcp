@@ -6,7 +6,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private Midi midi;
     private TextoMusicalParser parser;
     private Musica musica;
 
@@ -14,7 +13,6 @@ public class Main extends Application {
     //Isso aqui é a interface
     @Override
     public void start(Stage primaryStage) throws Exception {
-        midi = new Midi();
         parser = new TextoMusicalParser();
 
         UIBuilder uiBuilder = new UIBuilder(parser, musica);
