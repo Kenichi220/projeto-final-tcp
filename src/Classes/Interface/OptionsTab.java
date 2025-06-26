@@ -18,7 +18,8 @@ public class OptionsTab extends Tab {
         Slider volumeSlider = new Slider(0, 100, Musica.getVolume());
         volumeSlider.setShowTickLabels(true);
         volumeSlider.setShowTickMarks(true);
-        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> Musica.setVolume(newVal.intValue()));
+        //volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> Musica.setVolume(newVal.intValue()));
+        volumeSlider.valueProperty().bindBidirectional(Musica.volumeProperty());
 
         ComboBox<String> sequenciaInstrumentos = new ComboBox<>();
         String[] nomes = {"Piano", "Violao", "Saxofone", "Gaita_Fole", "Steel_Drum", "Aleatório"};
