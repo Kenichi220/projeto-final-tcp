@@ -1,6 +1,6 @@
 # projeto-final-tcp
 
-- Kenichi Brumati ([https://github.com/Kenichi220][@Kenichi220])
+- Kenichi Brumati ([[https://github.com/Kenichi220][@Kenichi220]])
 
 Necessário ter JavaFX
  
