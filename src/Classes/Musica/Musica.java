@@ -1,9 +1,9 @@
 package Classes.Musica;
 
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javax.sound.midi.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 
 public class Musica {
@@ -20,7 +20,7 @@ public class Musica {
     private static final Instrumentos instrumento_atual = new Instrumentos();
     private static final Notas  nota_atual = new Notas();
     private static final Notas  ultima_nota = new Notas();
-
+    private static final IntegerProperty volumeProperty = new SimpleIntegerProperty(50);
     private static final Midi midi;
 
     static {
@@ -77,13 +77,13 @@ public class Musica {
     public static void alterar_volume(int comando){
         switch (comando){
             case AUMENTA_VOLUME:
-                volume = volume * 2;
+                setVolume(VOLUME_INICIAL * 2);
                 break;
             case DIMINUI_VOLUME:
-                volume = VOLUME_INICIAL;
+                setVolume(VOLUME_INICIAL);
                 break;
             default:
-                volume = VOLUME_INICIAL;
+                setVolume(VOLUME_INICIAL);
         }
     }
 
@@ -148,14 +148,15 @@ public class Musica {
     }
 //----------------------------------------------
 //Construtores
+    public static int getVolume() {return volumeProperty.get();}
 
-    public static int getVolume() {
-        return volume;
-    }
+    public static void setVolume(int volume) {volumeProperty.set(volume);}
 
-    public static void setVolume(int volume) {
-        Musica.volume = volume;
-    }
+    public static IntegerProperty volumeProperty() {return volumeProperty;}
+
+    //public static int getVolume() {return volume;}
+
+    //public static void setVolume(int volume) {Musica.volume = volume;}
 
     public static int getOitava() {
         return oitava;
