@@ -12,8 +12,8 @@ public class TextoMusicalParser {
     private Thread threadReproducao;
 
     public TextoMusicalParser() {
-        this.tocando = false;
-        this.pausado = false;
+        tocando = false;
+        pausado = false;
     }
 
     public void play(String input, Button playButton, Button pauseButton) {
