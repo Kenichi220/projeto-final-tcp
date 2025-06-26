@@ -20,4 +20,4 @@ No IntelliJ
   
   -> Cole o seguinte: 
 
---module-path <seu diretorio lib do JavaFX> --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.swing,javafx.web 
+--module-path seu-diretorio-lib-do-JavaFX --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.swing,javafx.web 
