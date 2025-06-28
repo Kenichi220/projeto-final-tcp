@@ -121,11 +121,6 @@ public class Musica {
         ultima_nota.setNota(nota_atual.getNota());
     }
 
-    public static int trocarInstrumentoRandom(){
-        instrumento_atual.setNumero_MIDI(Instrumentos.instrumentoAleatorio());
-        midi.trocarInstrumento(instrumento_atual.getNumero_MIDI());
-        return instrumento_atual.getNumero_MIDI();
-    }
     public static void trocarInstrumento(int instrumentoSelecionado){
         instrumento_atual.setNumero_MIDI(instrumentoSelecionado);
         midi.trocarInstrumento(instrumento_atual.getNumero_MIDI());
