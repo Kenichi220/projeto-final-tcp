@@ -105,14 +105,14 @@ public class Musica {
             nota_atual.setNota(nota);
         switch (comando){
             case TOCAR_NOTA:
-                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
                 break;
             case NOTA_ANTERIOR:
-                midi.tocar(ultima_nota.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
+                midi.tocar(ultima_nota.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
                 break;
             case NOTA_ALEATORIA:
                 nota_atual.setNota(Notas.notaAleatoria());
-                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
                 break;
             default:
                 //Arrumar
@@ -133,7 +133,9 @@ public class Musica {
 //Construtores
     public static int getVolume() {return volumeProperty.get();}
 
-    public static void setVolume(int volume) {volumeProperty.set(volume);}
+    public static void setVolume(int volume) {
+        volumeProperty.set(volume);
+    }
 
     public static IntegerProperty volumeProperty() {return volumeProperty;}
 
