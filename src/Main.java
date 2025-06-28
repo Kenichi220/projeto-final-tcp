@@ -26,7 +26,7 @@ public class Main extends Application {
     }
     //isso aqui ta bugado n sei como arrumar e to cansado
     private void handleKeyPress(KeyEvent event) {
-        //midiController.handleKeyPress(event);
+
     }
     //inicializa a interface
     public static void main(String[] args) {
