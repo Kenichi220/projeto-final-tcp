@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 public class TextoMusicalParser {
 
     // Variáveis para controlar o estado da reprodução
-    // volatile -> todas as threads veem
+    // volatile -> todas as threads conseguem ver
     private volatile boolean tocando;
     private volatile boolean pausado;
     private Thread threadReproducao;
@@ -96,31 +96,31 @@ public class TextoMusicalParser {
 
             switch (letra_atual) {
                 case "A": case "a":
-                    Musica.tocar_som(Notas.LA, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.LA, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "B": case "b":
-                    Musica.tocar_som(Notas.SI, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.SI, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "C": case "c":
-                    Musica.tocar_som(Notas.DO, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.DO, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "D": case "d":
-                    Musica.tocar_som(Notas.RE, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.RE, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "E": case "e":
-                    Musica.tocar_som(Notas.MI, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.MI, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "F": case "f":
-                    Musica.tocar_som(Notas.FA, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.FA, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case "G": case "g":
-                    Musica.tocar_som(Notas.SOL, Musica.TOCAR_NOTA);
+                    Musica.tocarSom(Notas.SOL, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                     break;
                 case " ":
@@ -128,19 +128,19 @@ public class TextoMusicalParser {
                     notaAnterior = false;
                     break;
                 case "+":
-                    Musica.alterar_volume(Musica.AUMENTA_VOLUME);
+                    Musica.alterarVolume(Musica.AUMENTA_VOLUME);
                     notaAnterior = false;
                     break;
                 case "-":
-                    Musica.alterar_volume(Musica.DIMINUI_VOLUME);
+                    Musica.alterarVolume(Musica.DIMINUI_VOLUME);
                     notaAnterior = false;
                     break;
                 case "O": case "o": case "I": case "i": case "U": case "u":
                     if(notaAnterior == true){
-                        Musica.tocar_som(0, Musica.NOTA_ANTERIOR);
+                        Musica.tocarSom(0, Musica.NOTA_ANTERIOR);
                     }
                     else{
-                        Musica.tocar_som(Notas.TELEFONE, Musica.TOCAR_NOTA);
+                        Musica.tocarSom(Notas.TELEFONE, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
                     break;
@@ -148,27 +148,27 @@ public class TextoMusicalParser {
                 case "R":
                     if (i + 1 < musica.length) {
                         if (musica[i + 1].equals("+"))
-                            Musica.alterar_oitava(Musica.AUMENTA_OITAVA);
+                            Musica.alterarOitava(Musica.AUMENTA_OITAVA);
                         else if (musica[i + 1].equals("-"))
-                            Musica.alterar_oitava(Musica.DIMINUI_OITAVA);
+                            Musica.alterarOitava(Musica.DIMINUI_OITAVA);
                         i++;
                     }
                     notaAnterior = false;
                     break;
 
                 case "?":
-                    Musica.tocar_som(Musica.NOTA_ALEATORIA, Musica.NOTA_ALEATORIA);
+                    Musica.tocarSom(Musica.NOTA_ALEATORIA, Musica.NOTA_ALEATORIA);
                     notaAnterior = true;
                     break;
 
                 case ";":
-                    Musica.alterar_bpm(Musica.BPM_ALEATORIO);
+                    Musica.alterarBPM(Musica.BPM_ALEATORIO);
                     notaAnterior = false;
                     break;
 
                 case "\n":
 
-                    Musica.trocar_instrumento_random();
+                    Musica.trocarInstrumentoRandom();
                     notaAnterior = false;
                     break;
 
@@ -176,7 +176,7 @@ public class TextoMusicalParser {
                 default:
                     notaAnterior = false;
                     if (i + 3 < musica.length && musica[i].equals("B") && musica[i + 1].equals("P") && musica[i + 2].equals("M") && musica[i + 3].equals("+")) {
-                        Musica.alterar_bpm(Musica.AUMENTA_BPM);
+                        Musica.alterarBPM(Musica.AUMENTA_BPM);
                         i += 3;
                     }
                     else {

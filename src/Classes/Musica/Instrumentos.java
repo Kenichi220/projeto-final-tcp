@@ -5,16 +5,33 @@ public class Instrumentos{
     private int numero_MIDI;
 
     // Init intrumentos
-    static final int PIANO = 0;
-    static final int VIOLAO = 24;
-    static final int SAXOFONE = 65;
-    static final int GAITA_FOLE = 110;
-    static final int STEEL_DRAM = 114;
+    private static final int PIANO = 0;
+    private static final int VIOLAO = 24;
+    private static final int SAXOFONE = 65;
+    private static final int GAITA_FOLE = 110;
+    private static final int STEEL_DRAM = 114;
 
-    static final int NUM_INSTRUMENTOS = 5;
+    public static final int NUM_INSTRUMENTOS = 5;
 
-    //Operacao que chama a bibiloteca e coloca o instrumento
-    private void coloca_intrumento(){}
+    public static int[] obterInstrumentos(){
+        int[] vetor = {PIANO, VIOLAO, SAXOFONE, GAITA_FOLE, STEEL_DRAM};
+        return vetor;
+    }
+
+    public static String[] obterNomesInstrumentos(){
+        String[] nomes = {"Piano", "Violao", "Saxofone", "Gaita_Fole", "Steel_Drum", "Aleatório"};
+        return nomes;
+
+    }
+    public static int instrumentoAleatorio(){
+        int[] vetorInstrumentos = obterInstrumentos();
+        int random = (int) (Math.random() * NUM_INSTRUMENTOS);
+        return vetorInstrumentos[random];
+    }
+
+    public static int obterInstrumentoInicial(){
+        return PIANO;
+    }
 
 //----------------------------------------------
 //Construtores

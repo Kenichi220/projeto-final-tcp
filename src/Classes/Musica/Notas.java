@@ -15,11 +15,19 @@ public  class Notas{
 
     static final int NUM_NOTAS = 7;
 
-    //Recebe a nota a ser tocada e chama a biblioteca de som
-    public  void toca_nota() {}
+    public static int[] obterNotas(){
+       int[] vetor = {Notas.DO,Notas.RE,Notas.MI,Notas.FA,Notas.SOL,Notas.LA,Notas.SI};
+        return vetor;
+    }
+
+    public static int notaAleatoria(){
+        int[] vetorNotas = obterNotas();
+        int random = (int) (Math.random() * NUM_NOTAS);
+        return vetorNotas[random];
+    }
 
 //----------------------------------------------
-//Construtores
+//Getter e Setter
 
 
     public int getNota() {

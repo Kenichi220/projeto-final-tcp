@@ -1,6 +1,5 @@
 package Classes.Musica;
 
-import javafx.scene.control.Label;
 import javax.sound.midi.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,9 +8,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Musica {
 
     //Constantes Musica
-    static int VOLUME_INICIAL = 50;
-    static int OITAVA_INICIAL = 0;
-    static int BPM_INICIAL = 120;
+    private static int VOLUME_INICIAL = 50;
+    private static int OITAVA_INICIAL = 0;
+    private static int BPM_INICIAL = 120;
 
     //Variavies
     private static int volume = VOLUME_INICIAL;
@@ -40,6 +39,7 @@ public class Musica {
     //Constantes Oitava
     static final int AUMENTA_OITAVA = 1;
     static final int DIMINUI_OITAVA = 2;
+    static final int CONSTANTE_OITAVA = 12;
 
     //Constantes Bpm
     static int TEMPO_MUSICA = 60000/ bpm;
@@ -53,28 +53,15 @@ public class Musica {
     static final int NOTA_ANTERIOR = 2;
     static final int NOTA_ALEATORIA = 3;
 
-    public final Label volumeLabel = new Label("Volume: 50");
-    public final Label oitavaLabel = new Label("Oitava: 5");
 //---------------------------------------------------
 //Funcoes
 
-    private static int randomizar_nota() {
-        int random = (int) (Math.random() * Notas.NUM_NOTAS);
-        int[] vetor = {Notas.DO,Notas.RE,Notas.MI,Notas.FA,Notas.SOL,Notas.LA,Notas.SI};
-        return vetor[random];
-    }
-    private static int randomizar_instrumento() {
-        int random = (int) (Math.random() * Instrumentos.NUM_INSTRUMENTOS);
-        int[] vetor = {Instrumentos.PIANO, Instrumentos.VIOLAO,Instrumentos.SAXOFONE,Instrumentos.GAITA_FOLE,Instrumentos.STEEL_DRAM};
-        return vetor[random];
-    }
-
-    private static int randomizar_bpm() {
+    private static int randomizarBPM() {
         //Vai de 1 até BPM_ALEATORIO_MAX + 1
         return  (int) (Math.random() * BPM_ALEATORIO_MAX + 1);
     }
 
-    public static void alterar_volume(int comando){
+    public static void alterarVolume(int comando){
         switch (comando){
             case AUMENTA_VOLUME:
                 setVolume(VOLUME_INICIAL * 2);
@@ -87,7 +74,7 @@ public class Musica {
         }
     }
 
-    public static void alterar_oitava(int comando){
+    public static void alterarOitava(int comando){
         switch (comando){
             case AUMENTA_OITAVA:
                 oitava = oitava + 1;
@@ -99,33 +86,33 @@ public class Musica {
                 //Arrumar
         }
     }
-    public static void alterar_bpm(int comando){
+    public static void alterarBPM(int comando){
         switch (comando){
             case AUMENTA_BPM:
                 bpm = bpm + AUMENTO_BPM;
                 break;
             case BPM_ALEATORIO:
-                bpm = randomizar_bpm();
+                bpm = randomizarBPM();
                 break;
             default:
                 //Arrumar
         }
     }
 
-    public static void tocar_som(int nota, int comando){
+    public static void tocarSom(int nota, int comando){
         //Nota atual atualizada se houver nota
         if(nota != 0)
             nota_atual.setNota(nota);
         switch (comando){
             case TOCAR_NOTA:
-                midi.tocar(nota_atual.getNota() + (12 * oitava), TEMPO_MUSICA, volume);
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
                 break;
             case NOTA_ANTERIOR:
-                midi.tocar(ultima_nota.getNota() + (12 * oitava), TEMPO_MUSICA, volume);
+                midi.tocar(ultima_nota.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
                 break;
             case NOTA_ALEATORIA:
-                nota_atual.setNota(randomizar_nota());
-                midi.tocar(nota_atual.getNota() + (12 * oitava), TEMPO_MUSICA, volume);
+                nota_atual.setNota(Notas.notaAleatoria());
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, volume);
                 break;
             default:
                 //Arrumar
@@ -134,12 +121,13 @@ public class Musica {
         ultima_nota.setNota(nota_atual.getNota());
     }
 
-    public static void trocar_instrumento_random(){
-        instrumento_atual.setNumero_MIDI(randomizar_instrumento());
+    public static int trocarInstrumentoRandom(){
+        instrumento_atual.setNumero_MIDI(Instrumentos.instrumentoAleatorio());
         midi.trocarInstrumento(instrumento_atual.getNumero_MIDI());
+        return instrumento_atual.getNumero_MIDI();
     }
-    public static void trocar_instrumento(int instrumento_selecionado){
-        instrumento_atual.setNumero_MIDI(instrumento_selecionado);
+    public static void trocarInstrumento(int instrumentoSelecionado){
+        instrumento_atual.setNumero_MIDI(instrumentoSelecionado);
         midi.trocarInstrumento(instrumento_atual.getNumero_MIDI());
     }
     public static void pausa() {

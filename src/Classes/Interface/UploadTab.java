@@ -42,7 +42,7 @@ public class UploadTab extends Tab {
             }
         });
 
-        VBox textInputLayout = new VBox(10, uploadLabel, uploadButton, fileNameLabel);
+        VBox textInputLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, uploadLabel, uploadButton, fileNameLabel);
         textInputLayout.setAlignment(Pos.CENTER);
         textInputLayout.setStyle("-fx-padding: 20;");
 
