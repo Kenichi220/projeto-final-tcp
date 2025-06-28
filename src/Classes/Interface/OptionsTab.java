@@ -39,9 +39,9 @@ public class OptionsTab extends Tab {
                 instrumentoSelecionado = midiInstrumentos[numberSelected];
                 Musica.trocarInstrumento(instrumentoSelecionado);
             } else {
-                instrumentoSelecionado = Musica.trocarInstrumentoRandom();
+                instrumentoSelecionado = Instrumentos.instrumentoAleatorio();
+                Musica.trocarInstrumento(instrumentoSelecionado);
                 sequenciaInstrumentos.getSelectionModel().select(instrumentoSelecionado);
-
             }
         });
 

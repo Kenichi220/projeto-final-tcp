@@ -167,8 +167,8 @@ public class TextoMusicalParser {
                     break;
 
                 case "\n":
-
-                    Musica.trocarInstrumentoRandom();
+                    //Instrumento aleatorio
+                    Musica.trocarInstrumento(Instrumentos.instrumentoAleatorio());
                     notaAnterior = false;
                     break;
 
