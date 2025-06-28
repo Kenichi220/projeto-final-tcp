@@ -39,10 +39,10 @@ public class PlayTab extends Tab {
             parser.togglePause(pauseButton);
         });
 
-        VBox buttonBox = new VBox(10, playButton, pauseButton);
+        VBox buttonBox = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, playButton, pauseButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        VBox playLayout = new VBox(10, inputArea, buttonBox);
+        VBox playLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, inputArea, buttonBox);
         playLayout.setAlignment(Pos.CENTER);
         playLayout.setStyle("-fx-padding: 20;");
 

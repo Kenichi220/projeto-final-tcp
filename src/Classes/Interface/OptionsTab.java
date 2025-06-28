@@ -1,5 +1,6 @@
 package Classes.Interface;
 
+import Classes.Musica.Instrumentos;
 import Classes.Musica.Musica;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
@@ -9,39 +10,42 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 public class OptionsTab extends Tab {
-    private final int NUM_INSTRUMENTOS = 5;
+
+    private static int VOLUME_MAX = 100;
+    private static int VOLUME_MIN = 0;
+
 
     public OptionsTab(Musica musica) {
+
         super("Options");
         setClosable(false);
 
-        Slider volumeSlider = new Slider(0, 100, Musica.getVolume());
+        Slider volumeSlider = new Slider(VOLUME_MIN, VOLUME_MAX, Musica.getVolume());
         volumeSlider.setShowTickLabels(true);
         volumeSlider.setShowTickMarks(true);
         //volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> Musica.setVolume(newVal.intValue()));
         volumeSlider.valueProperty().bindBidirectional(Musica.volumeProperty());
 
         ComboBox<String> sequenciaInstrumentos = new ComboBox<>();
-        String[] nomes = {"Piano", "Violao", "Saxofone", "Gaita_Fole", "Steel_Drum", "Aleatório"};
-        int[] midiInstrumentos = {0, 24, 65, 110, 114};
-        sequenciaInstrumentos.getItems().addAll(nomes);
-        sequenciaInstrumentos.getSelectionModel().select(0);
+        String[] nomesInstrumentos = Instrumentos.obterNomesInstrumentos();
+        int[] midiInstrumentos = Instrumentos.obterInstrumentos();
+        sequenciaInstrumentos.getItems().addAll(nomesInstrumentos);
+        sequenciaInstrumentos.getSelectionModel().select(Instrumentos.obterInstrumentoInicial());
 
         sequenciaInstrumentos.setOnAction(e -> {
             int numberSelected = sequenciaInstrumentos.getSelectionModel().getSelectedIndex();
             int instrumentoSelecionado;
-            if (numberSelected < NUM_INSTRUMENTOS) {
+            if (numberSelected < (Instrumentos.NUM_INSTRUMENTOS)) {
                 instrumentoSelecionado = midiInstrumentos[numberSelected];
-                Musica.trocar_instrumento(instrumentoSelecionado);
+                Musica.trocarInstrumento(instrumentoSelecionado);
             } else {
-                int random = (int)(Math.random() * NUM_INSTRUMENTOS);
-                instrumentoSelecionado = midiInstrumentos[random];
-                Musica.trocar_instrumento(instrumentoSelecionado);
-                sequenciaInstrumentos.getSelectionModel().select(random);
+                instrumentoSelecionado = Musica.trocarInstrumentoRandom();
+                sequenciaInstrumentos.getSelectionModel().select(instrumentoSelecionado);
+
             }
         });
 
-        VBox optionsLayout = new VBox(10, new Label("Volume:"), volumeSlider, new Label("Instrumento:"), sequenciaInstrumentos);
+        VBox optionsLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, new Label("Volume:"), volumeSlider, new Label("Instrumento:"), sequenciaInstrumentos);
         optionsLayout.setAlignment(Pos.CENTER);
         optionsLayout.setStyle("-fx-padding: 20;");
 

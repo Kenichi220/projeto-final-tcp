@@ -8,13 +8,16 @@ public class Midi {
     private Synthesizer synthesizer;
     private MidiChannel channel;
 
+    private static final int CANAL_INICIAL = 0;
+    private final int TEMPO_PAUSA = 50;
+
     public Midi() throws MidiUnavailableException {
         //Pega o sintetizador
         synthesizer = MidiSystem.getSynthesizer();
         //Abre o sintetizador
         synthesizer.open();
         //Define o canal no zero
-        channel = synthesizer.getChannels()[0];
+        channel = synthesizer.getChannels()[CANAL_INICIAL];
     }
 
     public void tocar(int nota, int duration, int volume) {
@@ -26,7 +29,7 @@ public class Midi {
         channel.noteOff(nota);
         //Delay entre notas
         try {
-            Thread.sleep(50);
+            Thread.sleep(TEMPO_PAUSA);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
