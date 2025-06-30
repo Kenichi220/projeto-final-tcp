@@ -13,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         parser = new TextoMusicalParser();
+        musica = new Musica();
 
         UIBuilder uiBuilder = new UIBuilder(parser, musica);
         Scene scene = uiBuilder.buildUI();
