@@ -33,12 +33,8 @@ public class GeradorMidi {
     private static Track track = sequence.createTrack();
     private static int tick = TICK_INICIAL;
 
-
-
-
     public static void GeraArquivo() throws IOException {
-         String nomeArquivo = "melodia.mid";
-
+            String nomeArquivo = "melodia.mid";
 
             String[] texto = new String[]{PlayTab.getTexto()};
             TextoMusicalParser.setGerandoMidi(true);
