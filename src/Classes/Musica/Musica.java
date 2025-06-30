@@ -1,8 +1,10 @@
 package Classes.Musica;
 
 import javax.sound.midi.*;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Button;
 
 
 public class Musica {
@@ -53,8 +55,71 @@ public class Musica {
     static final int NOTA_ANTERIOR = 2;
     static final int NOTA_ALEATORIA = 3;
 
+    // volatile -> todas as threads conseguem ver
+    private static volatile boolean tocando;
+    private static volatile boolean pausado;
+    private Thread threadReproducao;
+
 //---------------------------------------------------
 //Funcoes
+    public Musica(){
+        tocando = false;
+        pausado = false;
+    }
+
+    public void play(String input, Button playButton, Button pauseButton) {
+        if (tocando) {
+            stop();
+        }
+
+        // Start inicial flags de controle
+        tocando = true;
+        pausado = false;
+
+        // Nova thread
+        threadReproducao = new Thread(() -> {
+            Platform.runLater(() -> playButton.setText("Parar"));
+            // Metodo roda em segundo plano
+            TextoMusicalParser.interpret(input);
+
+            Platform.runLater(() -> playButton.setText("Play"));
+            pauseButton.setDisable(true);
+
+            tocando = false;
+        });
+
+        threadReproducao.start();
+    }
+
+    public void togglePause(Button pauseButton) {
+        pausado = !pausado;
+
+        // Atualiza o texto do botão para refletir o estado atual
+        if (pausado) {
+            Platform.runLater(() -> pauseButton.setText("Retomar"));
+        } else {
+            Platform.runLater(() -> pauseButton.setText("Pause"));
+        }
+    }
+
+    public void stop() {
+        tocando = false;
+        pausado = false;
+
+        // Espera um pouco para a thread terminar, se necessário
+        if (threadReproducao != null) {
+            try {
+                threadReproducao.join(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    // Tive que colocar isso pra interligar a interface
+    public boolean isTocando() {
+        return tocando;
+    }
+
 
     private static int randomizarBPM() {
         //Vai de 1 até BPM_ALEATORIO_MAX + 1
@@ -159,4 +224,7 @@ public class Musica {
         Musica.bpm = bpm;
     }
 
+    public static boolean getTocando(){ return tocando;}
+
+    public static boolean getPausado(){return pausado;}
 }

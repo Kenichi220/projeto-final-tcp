@@ -1,81 +1,19 @@
 package Classes.Musica;
 
-import javafx.application.Platform;
-import javafx.scene.control.Button;
-
 public class TextoMusicalParser {
 
     // Variáveis para controlar o estado da reprodução
-    // volatile -> todas as threads conseguem ver
-    private volatile boolean tocando;
-    private volatile boolean pausado;
-    private Thread threadReproducao;
-
-    public TextoMusicalParser() {
-        tocando = false;
-        pausado = false;
-    }
-
-    public void play(String input, Button playButton, Button pauseButton) {
-        if (tocando) {
-            stop();
-        }
-
-        // Start inicial flags de controle
-        tocando = true;
-        pausado = false;
-
-        // Nova thread
-        threadReproducao = new Thread(() -> {
-            Platform.runLater(() -> playButton.setText("Parar"));
-            // Metodo roda em segundo plano
-            interpret(input);
-
-            Platform.runLater(() -> playButton.setText("Play"));
-            pauseButton.setDisable(true);
-
-            tocando = false;
-        });
-
-        threadReproducao.start();
-    }
-
-    public void togglePause(Button pauseButton) {
-        pausado = !pausado;
-
-        // Atualiza o texto do botão para refletir o estado atual
-        if (pausado) {
-            Platform.runLater(() -> pauseButton.setText("Retomar"));
-        } else {
-            Platform.runLater(() -> pauseButton.setText("Pause"));
-        }
-    }
-
-    public void stop() {
-        tocando = false;
-        pausado = false;
-
-        // Espera um pouco para a thread terminar, se necessário
-        if (threadReproducao != null) {
-            try {
-                threadReproducao.join(100);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-    // Tive que colocar isso pra interligar a interface
-    public boolean isTocando() {
-        return tocando;
-    }
+    private static boolean tocando;
+    private static boolean pausado;
 
     // controlado pelos botoes
-    private void interpret(String input) {
+    public static void interpret(String input) {
         boolean notaAnterior = false;
         String[] musica = input.split("");
 
         for (int i = 0; i < musica.length; i++) {
-
+            tocando = Musica.getTocando();
+            pausado = Musica.getPausado();
             // Como estou lidando com thread, precisei adiconar isso para quebrar o loop
             if (!tocando) {
                 break;
