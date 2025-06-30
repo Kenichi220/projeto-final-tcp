@@ -21,12 +21,13 @@ public class TextoMusicalParser {
 
             // Verifica se deve pausar
             while (pausado && tocando) {
+                pausado = Musica.getPausado();
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     // Interrompe se a musica for parada
-                    tocando = false;
+                    tocando = Musica.getTocando();
                 }
             }
 
