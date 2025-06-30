@@ -8,9 +8,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 public class PlayTab extends Tab {
-    private final TextArea inputArea;
+    private static TextArea inputArea = null;
     private final Button playButton;
     private final Button pauseButton;
+    public static String[] texto;
 
     public PlayTab(TextoMusicalParser parser, Musica musica) {
         super("Play");
@@ -51,5 +52,9 @@ public class PlayTab extends Tab {
 
     public TextArea getInputArea() {
         return inputArea;
+    }
+
+    public static String getTexto() {
+        return inputArea.getText();
     }
 }

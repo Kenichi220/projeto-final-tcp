@@ -5,6 +5,7 @@ public class TextoMusicalParser {
     // Variáveis para controlar o estado da reprodução
     private static boolean tocando;
     private static boolean pausado;
+    private static boolean gerandoMidi;
 
     // controlado pelos botoes
     public static void interpret(String input) {
@@ -15,7 +16,7 @@ public class TextoMusicalParser {
             tocando = Musica.getTocando();
             pausado = Musica.getPausado();
             // Como estou lidando com thread, precisei adiconar isso para quebrar o loop
-            if (!tocando) {
+            if (!tocando && !gerandoMidi) {
                 break;
             }
 
@@ -35,32 +36,67 @@ public class TextoMusicalParser {
 
             switch (letra_atual) {
                 case "A": case "a":
-                    Musica.tocarSom(Notas.LA, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.LA, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                       GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.LA);
+                    }
                     break;
                 case "B": case "b":
-                    Musica.tocarSom(Notas.SI, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.SI, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.SI);
+                    }
                     break;
                 case "C": case "c":
-                    Musica.tocarSom(Notas.DO, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.DO, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.DO);
+                    }
                     break;
                 case "D": case "d":
+                    if(tocando){
                     Musica.tocarSom(Notas.RE, Musica.TOCAR_NOTA);
                     notaAnterior = true;
+                }
+                else if(gerandoMidi) {
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.RE);
+                    }
                     break;
                 case "E": case "e":
-                    Musica.tocarSom(Notas.MI, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.MI, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.MI);
+                    }
                     break;
                 case "F": case "f":
-                    Musica.tocarSom(Notas.FA, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.FA, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.FA);
+                    }
                     break;
                 case "G": case "g":
-                    Musica.tocarSom(Notas.SOL, Musica.TOCAR_NOTA);
-                    notaAnterior = true;
+                    if(tocando){
+                        Musica.tocarSom(Notas.SOL, Musica.TOCAR_NOTA);
+                        notaAnterior = true;
+                    }
+                    else if(gerandoMidi){
+                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.SOL);
+                    }
                     break;
                 case " ":
                     Musica.pausa();
@@ -125,5 +161,9 @@ public class TextoMusicalParser {
 
             }
         }
+    }
+
+    public static void setGerandoMidi(boolean gerandoMidi) {
+        TextoMusicalParser.gerandoMidi = gerandoMidi;
     }
 }
