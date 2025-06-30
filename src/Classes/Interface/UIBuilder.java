@@ -20,7 +20,7 @@ public class UIBuilder {
     }
 
     public Scene buildUI() {
-        PlayTab playTab = new PlayTab(parser);
+        PlayTab playTab = new PlayTab(parser, musica);
 
         OptionsTab optionsTab = new OptionsTab(musica);
 

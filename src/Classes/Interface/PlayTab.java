@@ -1,6 +1,6 @@
 package Classes.Interface;
 
-import Classes.Musica.TextoMusicalParser;
+import Classes.Musica.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -12,7 +12,7 @@ public class PlayTab extends Tab {
     private final Button playButton;
     private final Button pauseButton;
 
-    public PlayTab(TextoMusicalParser parser) {
+    public PlayTab(TextoMusicalParser parser, Musica musica) {
         super("Play");
         setClosable(false);
 
@@ -25,18 +25,18 @@ public class PlayTab extends Tab {
         pauseButton.setDisable(true);
 
         playButton.setOnAction(e -> {
-            if (parser.isTocando()) {
-                parser.stop();
+            if (musica.isTocando()) {
+                musica.stop();
                 pauseButton.setDisable(true);
                 pauseButton.setText("Pause");
             } else {
-                parser.play(inputArea.getText(), playButton, pauseButton);
+                musica.play(inputArea.getText(), playButton, pauseButton);
                 pauseButton.setDisable(false);
             }
         });
 
         pauseButton.setOnAction(e -> {
-            parser.togglePause(pauseButton);
+            musica.togglePause(pauseButton);
         });
 
         VBox buttonBox = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, playButton, pauseButton);
