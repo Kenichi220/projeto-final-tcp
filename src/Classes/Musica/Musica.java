@@ -227,6 +227,5 @@ public class Musica {
     public static boolean getTocando(){ return tocando;}
 
     public static boolean getPausado(){return pausado;}
-
-    public static boolean setTocacando(){return tocando = !tocando;}
+    
 }
