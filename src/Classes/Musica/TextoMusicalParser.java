@@ -161,9 +161,14 @@ public class TextoMusicalParser {
 
             }
         }
+        tocando = false;
     }
 
     public static void setGerandoMidi(boolean gerandoMidi) {
         TextoMusicalParser.gerandoMidi = gerandoMidi;
+    }
+
+    public static boolean getTocando() {
+        return tocando;
     }
 }

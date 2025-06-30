@@ -21,7 +21,7 @@ public class Main extends Application {
         //Pega key pressionada
         scene.setOnKeyPressed(this::handleKeyPress);
 
-        primaryStage.setTitle("Interface Musical Modular");
+        primaryStage.setTitle("Sintetizador de Música Ultra Rápido e Furioso");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

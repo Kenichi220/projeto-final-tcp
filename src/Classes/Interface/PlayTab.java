@@ -18,6 +18,7 @@ public class PlayTab extends Tab {
         setClosable(false);
 
         inputArea = new TextArea();
+        inputArea.clear();
         inputArea.setPromptText("Digite a música...");
 
         playButton = new Button("Play");

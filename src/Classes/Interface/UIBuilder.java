@@ -24,7 +24,7 @@ public class UIBuilder {
 
         OptionsTab optionsTab = new OptionsTab(musica);
 
-        UploadTab uploadTab = new UploadTab(playTab.getInputArea());
+        ArquivosTab uploadTab = new ArquivosTab(playTab.getInputArea());
 
         TabPane tabPane = new TabPane(playTab, optionsTab, uploadTab);
 

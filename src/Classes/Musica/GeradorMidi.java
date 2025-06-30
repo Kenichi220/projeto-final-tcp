@@ -17,8 +17,6 @@ public class GeradorMidi {
     private static final int CANAL = 0;
     private static final int DURACAO_NOTA = 100;
 
-
-
     //Variaveis
    private static Sequence sequence;
 
@@ -34,18 +32,24 @@ public class GeradorMidi {
     private static int tick = TICK_INICIAL;
 
     public static void GeraArquivo() throws IOException {
+            //Reinicia o track para nao poluir o arquivo
+            tick = TICK_INICIAL;
+            sequence.deleteTrack(track);
+            track = sequence.createTrack();
+
             String nomeArquivo = "melodia.mid";
 
-            String[] texto = new String[]{PlayTab.getTexto()};
-            TextoMusicalParser.setGerandoMidi(true);
-            TextoMusicalParser.interpret(Arrays.toString(texto));
+            //Se nao estiver tocando vai gerar o arquivo
+            if(!TextoMusicalParser.getTocando()) {
+                String texto = PlayTab.getTexto();
+                TextoMusicalParser.setGerandoMidi(true);
+                TextoMusicalParser.interpret(texto);
 
-            // 4. Escrever a Sequência em um arquivo .midi
-            File f = new File(nomeArquivo);
-            MidiSystem.write(sequence, 1, f); // O segundo parâmetro é o tipo do arquivo MIDI
+                File f = new File(nomeArquivo);
+                MidiSystem.write(sequence, 1, f); // O segundo parâmetro é o tipo do arquivo MIDI
 
-            System.out.println("Arquivo " + nomeArquivo + " criado com sucesso!");
-
+                System.out.println("Arquivo " + nomeArquivo + " criado com sucesso!");
+            }
     }
 
     public static void criarEventoMidi(int comando, int nota){
