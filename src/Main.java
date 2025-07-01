@@ -18,18 +18,12 @@ public class Main extends Application {
         UIBuilder uiBuilder = new UIBuilder(parser, musica);
         Scene scene = uiBuilder.buildUI();
 
-        //Pega key pressionada
-        scene.setOnKeyPressed(this::handleKeyPress);
-
+        //Titulo da Interface
         primaryStage.setTitle("Sintetizador de Musica");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    //isso aqui ta bugado n sei como arrumar e to cansado
-    private void handleKeyPress(KeyEvent event) {
-
-    }
-    //inicializa a interface
+    //Inicializa a interface
     public static void main(String[] args) {
         launch(args);
     }

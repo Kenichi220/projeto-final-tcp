@@ -15,12 +15,13 @@ public class UIBuilder {
     private final TextoMusicalParser parser;
     private final Musica musica;
 
-
+    //Mapeia as classes para utilizacao no builder
     public UIBuilder(TextoMusicalParser parser, Musica musica) {
         this.parser = parser;
         this.musica = musica;
     }
 
+    //Cria o contexto das abas da interface
     public Scene buildUI() {
         PlayTab playTab = new PlayTab(parser, musica);
 

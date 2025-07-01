@@ -17,7 +17,7 @@ public class PlayTab extends Tab {
     public PlayTab(TextoMusicalParser parser, Musica musica) {
         super("Play");
         setClosable(false);
-
+        //Caixas de Texto
         inputArea = new TextArea();
         inputArea.clear();
         inputArea.setPromptText("Digite a música...");
@@ -27,6 +27,7 @@ public class PlayTab extends Tab {
         // Impede que pressione o pause
         pauseButton.setDisable(true);
 
+        //Logica do Pause
         playButton.setOnAction(e -> {
             if (musica.isTocando()) {
                 musica.stop();
@@ -41,12 +42,13 @@ public class PlayTab extends Tab {
         pauseButton.setOnAction(e -> {
             musica.togglePause(pauseButton);
         });
-
+        //Criacao dos Botoes
         VBox buttonBox = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, playButton, pauseButton);
         buttonBox.setAlignment(Pos.CENTER);
 
         VBox playLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, inputArea, buttonBox);
         playLayout.setAlignment(Pos.CENTER);
+        //Estilo do layout
         playLayout.setStyle("-fx-padding: 20;");
 
         setContent(playLayout);

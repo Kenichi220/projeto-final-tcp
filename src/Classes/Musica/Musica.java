@@ -8,11 +8,12 @@ import javafx.scene.control.Button;
 
 
 public class Musica {
-
+    //Numeros 1 e 2, são definidos no enunciado do trabalho
     //Constantes Musica
     private static int VOLUME_INICIAL = 50;
-    private static int OITAVA_INICIAL = 4;
+    private static int OITAVA_INICIAL = 0;
     private static int BPM_INICIAL = 120;
+    private static int TIME_SLEEP = 100;
 
     //Variavies
     private static int volume = VOLUME_INICIAL;
@@ -78,7 +79,7 @@ public class Musica {
         tocando = true;
         pausado = false;
 
-        // Nova thread
+        //Thread que interage com o PlayTab
         threadReproducao = new Thread(() -> {
             Platform.runLater(() -> playButton.setText("Parar"));
             // Metodo roda em segundo plano
@@ -111,7 +112,7 @@ public class Musica {
         // Espera um pouco para a thread terminar, se necessário
         if (threadReproducao != null) {
             try {
-                threadReproducao.join(100);
+                threadReproducao.join(TIME_SLEEP);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

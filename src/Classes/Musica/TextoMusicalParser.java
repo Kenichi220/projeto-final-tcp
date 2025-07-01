@@ -28,6 +28,7 @@ public class TextoMusicalParser {
             }
 
             String letra_atual = musica[i];
+            // 4 espaços ocupado pela string "BPM+"
             if (i + 3 < musica.length &&
                     musica[i].equalsIgnoreCase("B") &&
                     musica[i + 1].equalsIgnoreCase("P") &&

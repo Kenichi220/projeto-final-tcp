@@ -26,6 +26,7 @@ public class OptionsTab extends Tab {
         super("Options");
         setClosable(false);
 
+        //Criacao dos Sliders
         Slider volumeSlider = new Slider(VOLUME_MIN, VOLUME_MAX, Musica.getVolume());
         volumeSlider.setShowTickLabels(true);
         volumeSlider.setShowTickMarks(true);
@@ -44,13 +45,14 @@ public class OptionsTab extends Tab {
         oitavaSlider.setMinorTickCount(REMOVE_MINOR_TICK);
         oitavaSlider.valueProperty().bindBidirectional(Musica.oitavaProperty());
 
-        //Combo box = caixas de selecao
+        //Caixas de selecao
         ComboBox<String> sequenciaInstrumentos = new ComboBox<>();
         String[] nomesInstrumentos = Instrumentos.obterNomesInstrumentos();
         int[] midiInstrumentos = Instrumentos.obterInstrumentos();
         sequenciaInstrumentos.getItems().addAll(nomesInstrumentos);
         sequenciaInstrumentos.getSelectionModel().select(Instrumentos.obterInstrumentoInicial());
 
+        //Barra de Instrumentos
         sequenciaInstrumentos.setOnAction(e -> {
             int numberSelected = sequenciaInstrumentos.getSelectionModel().getSelectedIndex();
             int instrumentoSelecionado;
@@ -63,7 +65,7 @@ public class OptionsTab extends Tab {
                 sequenciaInstrumentos.getSelectionModel().select(instrumentoSelecionado);
             }
         });
-
+        //Caixas de tetxo
         VBox optionsLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT,
                 new Label("Volume:"), volumeSlider,
                 new Label("BPM:"), bpmSlider,
@@ -71,6 +73,7 @@ public class OptionsTab extends Tab {
                 new Label("Instrumento:"), sequenciaInstrumentos
         );
         optionsLayout.setAlignment(Pos.CENTER);
+        //Estilo do layout
         optionsLayout.setStyle("-fx-padding: 20;");
 
         setContent(optionsLayout);

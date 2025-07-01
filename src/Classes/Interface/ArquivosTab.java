@@ -14,7 +14,7 @@ import java.nio.file.Files;
 
 public class ArquivosTab extends Tab {
 
-    //COnstantes
+    //Constantes
     private static final int DESLOCAMENTO_VERTICAL = 25;
     private static final int DESLOCAMENTO_HORIZONTAL = 0;
     private static final int POSICIONAMENTO = 0;
@@ -23,36 +23,47 @@ public class ArquivosTab extends Tab {
         super("Arquivos");
         setClosable(false);
 
+        //Caixas de Texto
         Label uploadLabel = new Label("Carregue uma partitura de um arquivo de texto:");
         Button uploadButton = new Button("Selecionar arquivo .txt");
         Label fileNameLabel = new Label("Nenhum arquivo selecionado");
         Button exportMidi = new Button("Exportar em .midi");
 
+        //Botao de Upload do Txt
         uploadButton.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Selecionar arquivo .txt");
-            // Bloqueia arquivos nao txt
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos de Texto (*.txt)", "*.txt");
-            fileChooser.getExtensionFilters().add(extFilter);
+            //Bloqueia se a musica estar tocando
+            if(!Musica.getTocando()) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Selecionar arquivo .txt");
+                // Bloqueia arquivos nao txt
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Arquivos de Texto (*.txt)", "*.txt");
+                fileChooser.getExtensionFilters().add(extFilter);
 
-            File file = fileChooser.showOpenDialog(uploadButton.getScene().getWindow());
+                File file = fileChooser.showOpenDialog(uploadButton.getScene().getWindow());
 
-            if (file != null) {
-                try {
-                    String text = new String(Files.readAllBytes(file.toPath()));
-                    targetTextArea.setText(text);
-                    fileNameLabel.setText("Arquivo: " + file.getName());
-                } catch (IOException ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erro de Leitura");
-                    alert.setHeaderText("Não foi possível ler o conteúdo do arquivo.");
-                    alert.setContentText(ex.getMessage());
-                    alert.showAndWait();
+                if (file != null) {
+                    try {
+                        String text = new String(Files.readAllBytes(file.toPath()));
+                        targetTextArea.setText(text);
+                        fileNameLabel.setText("Arquivo: " + file.getName());
+                    } catch (IOException ex) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erro de Leitura");
+                        alert.setHeaderText("Não foi possível ler o conteúdo do arquivo.");
+                        alert.setContentText(ex.getMessage());
+                        alert.showAndWait();
+                    }
                 }
             }
+            else{
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("ERROR: Encerre a música para carregar arquivo!");
+                errorAlert.showAndWait();
+            }
         });
-
+        //Botao de exportar o Midi
         exportMidi.setOnAction(e -> {
+            //Bloqueia se a musica estar tocando
             if(!Musica.getTocando()) {
                 try {
                     GeradorMidi.GeraArquivo();
@@ -67,21 +78,23 @@ public class ArquivosTab extends Tab {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle("Erro de Arquivo");
                     errorAlert.setHeaderText("Não foi possível gerar o arquivo .midi");
-                    errorAlert.setHeaderText("Possivel erro: Encerre ou pause a musica para gerar o arquivo .midi");
+                    errorAlert.setHeaderText("ERROR: Encerre ou pause a musica para gerar o arquivo .midi");
                     errorAlert.setContentText("Ocorreu um erro de I/O: " + ex.getMessage());
                     errorAlert.showAndWait();
                 }
             }
             else{
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("Possivel erro: Encerre ou pause a musica para gerar o arquivo .midi");
+                errorAlert.setHeaderText("ERROR: Encerre a música para gerar o arquivo .midi");
                 errorAlert.showAndWait();
             }
 
         });
 
+        //Estilo do layout
         VBox textInputLayout = new VBox(UIBuilder.ESPACAMENTO_LAYOUT, uploadLabel, uploadButton, fileNameLabel, exportMidi);
         textInputLayout.setAlignment(Pos.CENTER);
+
         textInputLayout.setStyle("-fx-padding: 20;");
 
         VBox.setMargin(exportMidi, new Insets(DESLOCAMENTO_VERTICAL, DESLOCAMENTO_HORIZONTAL, POSICIONAMENTO, POSICIONAMENTO));
