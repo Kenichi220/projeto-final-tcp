@@ -9,7 +9,7 @@ public class Midi {
     private MidiChannel channel;
 
     private static final int CANAL_INICIAL = 0;
-    private final int TEMPO_PAUSA = 50;
+    static final int TEMPO_PAUSA = 50;
 
     public Midi() throws MidiUnavailableException {
         //Pega o sintetizador

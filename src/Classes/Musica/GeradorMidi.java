@@ -16,6 +16,7 @@ public class GeradorMidi {
     private static final int TICK = 24;
     private static final int CANAL = 0;
     private static final int DURACAO_NOTA = 100;
+    private static boolean gerandoMidi;
 
     //Variaveis
    private static Sequence sequence;
@@ -42,7 +43,7 @@ public class GeradorMidi {
             //Se nao estiver tocando vai gerar o arquivo
             if(!Musica.getTocando()) {
                 String texto = PlayTab.getTexto();
-                TextoMusicalParser.setGerandoMidi(true);
+                gerandoMidi = true;
                 TextoMusicalParser.interpret(texto);
 
                 File f = new File(nomeArquivo);
@@ -72,7 +73,9 @@ public class GeradorMidi {
     }
 //----------------------------------------------
 
-
+    public static boolean getGerandoMidi() {
+        return gerandoMidi;
+    }
 
 }
 

@@ -1,11 +1,10 @@
 package Classes.Musica;
 
+import javax.print.attribute.standard.PageRanges;
+
 public class TextoMusicalParser {
 
     // Variáveis para controlar o estado da reprodução
-    private static boolean tocando;
-    private static boolean pausado;
-    private static boolean gerandoMidi;
 
     // controlado pelos botoes
     public static void interpret(String input) {
@@ -13,22 +12,18 @@ public class TextoMusicalParser {
         String[] musica = input.split("");
 
         for (int i = 0; i < musica.length; i++) {
-            tocando = Musica.getTocando();
-            pausado = Musica.getPausado();
+
             // Como estou lidando com thread, precisei adiconar isso para quebrar o loop
-            if (!tocando && !gerandoMidi) {
+            if (!Musica.getTocando() && !(GeradorMidi.getGerandoMidi())) {
                 break;
             }
 
             // Verifica se deve pausar
-            while (pausado && tocando) {
-                pausado = Musica.getPausado();
+            while (Musica.getPausado() && Musica.getTocando()) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(Midi.TEMPO_PAUSA);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    // Interrompe se a musica for parada
-                    tocando = Musica.getTocando();
                 }
             }
 
@@ -36,65 +31,65 @@ public class TextoMusicalParser {
 
             switch (letra_atual) {
                 case "A": case "a":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.LA, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                        GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.LA);
                     }
                     break;
                 case "B": case "b":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.SI, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.SI);
                     }
                     break;
                 case "C": case "c":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.DO, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.DO);
                     }
                     break;
                 case "D": case "d":
-                    if(tocando){
+                    if(Musica.getTocando()){
                     Musica.tocarSom(Notas.RE, Musica.TOCAR_NOTA);
                     notaAnterior = true;
                 }
-                else if(gerandoMidi) {
+                else if(GeradorMidi.getGerandoMidi()) {
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.RE);
                     }
                     break;
                 case "E": case "e":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.MI, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.MI);
                     }
                     break;
                 case "F": case "f":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.FA, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.FA);
                     }
                     break;
                 case "G": case "g":
-                    if(tocando){
+                    if(Musica.getTocando()){
                         Musica.tocarSom(Notas.SOL, Musica.TOCAR_NOTA);
                         notaAnterior = true;
                     }
-                    else if(gerandoMidi){
+                    else if(GeradorMidi.getGerandoMidi()){
                         GeradorMidi.criarEventoMidi(GeradorMidi.NOTE_ON, Notas.SOL);
                     }
                     break;
@@ -161,10 +156,7 @@ public class TextoMusicalParser {
 
             }
         }
-        tocando = false;
+        Musica.setTocando(false);
     }
 
-    public static void setGerandoMidi(boolean gerandoMidi) {
-        TextoMusicalParser.gerandoMidi = gerandoMidi;
-    }
 }

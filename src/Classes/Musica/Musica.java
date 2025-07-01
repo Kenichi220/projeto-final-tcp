@@ -11,7 +11,7 @@ public class Musica {
 
     //Constantes Musica
     private static int VOLUME_INICIAL = 50;
-    private static int OITAVA_INICIAL = 0;
+    private static int OITAVA_INICIAL = 4;
     private static int BPM_INICIAL = 120;
 
     //Variavies
@@ -219,20 +219,11 @@ public class Musica {
 
     public static IntegerProperty oitavaProperty() {return oitavaProperty;}
 
-    //public static int getVolume() {return volume;}
-
-    //public static void setVolume(int volume) {Musica.volume = volume;}
-
-    //public static int getOitava() {return oitava;}
-
-    //public static void setOitava(int oitava) {Musica.oitava = oitava;}
-
-    //public static int getBpm() {return bpm;}
-
-    //public static void setBpm(int bpm) {Musica.bpm = bpm;}
-
     public static boolean getTocando(){ return tocando;}
 
     public static boolean getPausado(){return pausado;}
-    
+
+    public static void setTocando(boolean tocando) {
+        Musica.tocando = tocando;
+    }
 }
