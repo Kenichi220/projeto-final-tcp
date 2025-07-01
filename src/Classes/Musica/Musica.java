@@ -21,7 +21,9 @@ public class Musica {
     private static final Instrumentos instrumento_atual = new Instrumentos();
     private static final Notas  nota_atual = new Notas();
     private static final Notas  ultima_nota = new Notas();
-    private static final IntegerProperty volumeProperty = new SimpleIntegerProperty(50);
+    private static final IntegerProperty volumeProperty = new SimpleIntegerProperty(VOLUME_INICIAL);
+    private static final IntegerProperty bpmProperty = new SimpleIntegerProperty(BPM_INICIAL);
+    private static final IntegerProperty oitavaProperty = new SimpleIntegerProperty(OITAVA_INICIAL);
     private static final Midi midi;
 
     static {
@@ -44,7 +46,7 @@ public class Musica {
     static final int CONSTANTE_OITAVA = 12;
 
     //Constantes Bpm
-    static int TEMPO_MUSICA = 60000/ bpm;
+    static final int TEMPO_MUSICA = 60000;
     static final int AUMENTA_BPM = 1;
     static final int BPM_ALEATORIO = 2;
     static final int BPM_ALEATORIO_MAX = 179;
@@ -142,10 +144,10 @@ public class Musica {
     public static void alterarOitava(int comando){
         switch (comando){
             case AUMENTA_OITAVA:
-                oitava = oitava + 1;
+                setOitava(getOitava() + 1);
                 break;
             case DIMINUI_OITAVA:
-                oitava = oitava - 1;
+                setOitava(getOitava() - 1);
                 break;
             default:
                 //Arrumar
@@ -154,10 +156,13 @@ public class Musica {
     public static void alterarBPM(int comando){
         switch (comando){
             case AUMENTA_BPM:
-                bpm = bpm + AUMENTO_BPM;
+               setBpm(getBpm() + AUMENTO_BPM);
+               bpm = getBpm();
                 break;
             case BPM_ALEATORIO:
-                bpm = randomizarBPM();
+                int bpmRandom = randomizarBPM();
+                setBpm(bpmRandom);
+                bpm = getBpm();
                 break;
             default:
                 //Arrumar
@@ -170,14 +175,14 @@ public class Musica {
             nota_atual.setNota(nota);
         switch (comando){
             case TOCAR_NOTA:
-                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * getOitava()), TEMPO_MUSICA/getBpm(), getVolume());
                 break;
             case NOTA_ANTERIOR:
-                midi.tocar(ultima_nota.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
+                midi.tocar(ultima_nota.getNota() + (CONSTANTE_OITAVA * getOitava()), TEMPO_MUSICA/getBpm(), getVolume());
                 break;
             case NOTA_ALEATORIA:
                 nota_atual.setNota(Notas.notaAleatoria());
-                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * oitava), TEMPO_MUSICA, getVolume());
+                midi.tocar(nota_atual.getNota() + (CONSTANTE_OITAVA * getOitava()), TEMPO_MUSICA/getBpm(), getVolume());
                 break;
             default:
                 //Arrumar
@@ -198,31 +203,33 @@ public class Musica {
 //Construtores
     public static int getVolume() {return volumeProperty.get();}
 
-    public static void setVolume(int volume) {
-        volumeProperty.set(volume);
-    }
+    public static void setVolume(int volume) {volumeProperty.set(volume);}
 
     public static IntegerProperty volumeProperty() {return volumeProperty;}
+
+    public static int getBpm() {return bpmProperty.get();}
+
+    public static void setBpm(int bpm) {bpmProperty.set(bpm);}
+
+    public static IntegerProperty bpmProperty() {return bpmProperty;}
+
+    public static int getOitava() {return oitavaProperty().get();}
+
+    public static void setOitava(int oitava) {oitavaProperty().set(oitava);}
+
+    public static IntegerProperty oitavaProperty() {return oitavaProperty;}
 
     //public static int getVolume() {return volume;}
 
     //public static void setVolume(int volume) {Musica.volume = volume;}
 
-    public static int getOitava() {
-        return oitava;
-    }
+    //public static int getOitava() {return oitava;}
 
-    public static void setOitava(int oitava) {
-        Musica.oitava = oitava;
-    }
+    //public static void setOitava(int oitava) {Musica.oitava = oitava;}
 
-    public static int getBpm() {
-        return bpm;
-    }
+    //public static int getBpm() {return bpm;}
 
-    public static void setBpm(int bpm) {
-        Musica.bpm = bpm;
-    }
+    //public static void setBpm(int bpm) {Musica.bpm = bpm;}
 
     public static boolean getTocando(){ return tocando;}
 
