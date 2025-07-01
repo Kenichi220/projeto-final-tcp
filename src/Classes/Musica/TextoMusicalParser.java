@@ -34,9 +34,9 @@ public class TextoMusicalParser {
                     musica[i + 2].equalsIgnoreCase("M") &&
                     musica[i + 3].equals("+")) {
 
-                // Se encontrou "BPM+", altera o BPM e avança o índice
+                
                 Musica.alterarBPM(Musica.AUMENTA_BPM);
-                i += 3; // Pula os caracteres 'P', 'M', e '+' que já foram processados
+                i += 3; 
                 notaAnterior = false;
 
             } else {
@@ -158,7 +158,6 @@ public class TextoMusicalParser {
                         notaAnterior = false;
                         break;
 
-                    //Trata do default e do BPM+
                     default:
                         notaAnterior = false;
                         break;
