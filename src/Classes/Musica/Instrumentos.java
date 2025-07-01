@@ -34,7 +34,7 @@ public class Instrumentos{
     }
 
 //----------------------------------------------
-//Construtores
+//Getter Setter
 
     public int getNumero_MIDI() {
         return numero_MIDI;

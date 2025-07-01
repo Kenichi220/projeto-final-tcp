@@ -6,13 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 
 public class UIBuilder {
-    private final TextoMusicalParser parser;
-    private final Musica musica;
+    //Constantes
     private final int LARGURA_LAYOUT = 600;
     private final int ALTURA_LAYOUT = 400;
-
-    //Constante usada em todos os layouts
     static final int ESPACAMENTO_LAYOUT = 10;
+
+    //Variaveis
+    private final TextoMusicalParser parser;
+    private final Musica musica;
+
 
     public UIBuilder(TextoMusicalParser parser, Musica musica) {
         this.parser = parser;

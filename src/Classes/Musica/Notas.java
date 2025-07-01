@@ -29,7 +29,6 @@ public  class Notas{
 //----------------------------------------------
 //Getter e Setter
 
-
     public int getNota() {
         return nota;
     }

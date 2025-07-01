@@ -200,7 +200,8 @@ public class Musica {
 
     }
 //----------------------------------------------
-//Construtores
+//Getter Setter
+
     public static int getVolume() {return volumeProperty.get();}
 
     public static void setVolume(int volume) {volumeProperty.set(volume);}

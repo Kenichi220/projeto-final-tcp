@@ -43,6 +43,4 @@ public class Midi {
     public void trocarInstrumento(int MIDI) {
         channel.programChange(MIDI);
     }
-
-
 }

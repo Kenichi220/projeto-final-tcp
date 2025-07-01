@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class OptionsTab extends Tab {
 
+    //Constantes
     private static int VOLUME_MAX = 100;
     private static int VOLUME_MIN = 0;
     private static int BPM_MAX = 300;

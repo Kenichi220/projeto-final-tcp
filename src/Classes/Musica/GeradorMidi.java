@@ -72,6 +72,7 @@ public class GeradorMidi {
         return new MidiEvent(mensagem, tick);
     }
 //----------------------------------------------
+//Getter Setter
 
     public static boolean getGerandoMidi() {
         return gerandoMidi;

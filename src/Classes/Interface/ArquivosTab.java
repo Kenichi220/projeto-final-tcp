@@ -14,6 +14,7 @@ import java.nio.file.Files;
 
 public class ArquivosTab extends Tab {
 
+    //COnstantes
     private static final int DESLOCAMENTO_VERTICAL = 25;
     private static final int DESLOCAMENTO_HORIZONTAL = 0;
     private static final int POSICIONAMENTO = 0;

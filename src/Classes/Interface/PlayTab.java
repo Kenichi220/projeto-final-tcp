@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
 public class PlayTab extends Tab {
+    //Variaveis
     private static TextArea inputArea = null;
     private final Button playButton;
     private final Button pauseButton;
@@ -51,6 +52,8 @@ public class PlayTab extends Tab {
         setContent(playLayout);
     }
 
+//----------------------------------------------
+//Getter Setter
     public TextArea getInputArea() {
         return inputArea;
     }
