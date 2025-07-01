@@ -9,7 +9,7 @@ public class Main extends Application {
     private TextoMusicalParser parser;
     private Musica musica;
 
-    //Isso aqui é a interface
+    //Iniciando a interface
     @Override
     public void start(Stage primaryStage) throws Exception {
         parser = new TextoMusicalParser();
