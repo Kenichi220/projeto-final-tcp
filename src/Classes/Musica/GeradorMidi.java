@@ -40,7 +40,7 @@ public class GeradorMidi {
             String nomeArquivo = "melodia.mid";
 
             //Se nao estiver tocando vai gerar o arquivo
-            if(!TextoMusicalParser.getTocando()) {
+            if(!Musica.getTocando()) {
                 String texto = PlayTab.getTexto();
                 TextoMusicalParser.setGerandoMidi(true);
                 TextoMusicalParser.interpret(texto);

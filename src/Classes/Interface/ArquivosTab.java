@@ -1,6 +1,7 @@
 package Classes.Interface;
 
 import Classes.Musica.GeradorMidi;
+import Classes.Musica.Musica;
 import Classes.Musica.TextoMusicalParser;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -51,7 +52,7 @@ public class ArquivosTab extends Tab {
         });
 
         exportMidi.setOnAction(e -> {
-            if(!TextoMusicalParser.getTocando()) {
+            if(!Musica.getTocando()) {
                 try {
                     GeradorMidi.GeraArquivo();
 
