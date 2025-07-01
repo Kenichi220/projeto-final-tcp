@@ -43,7 +43,8 @@ public class OptionsTab extends Tab {
         oitavaSlider.setMajorTickUnit(OITAVA_TICK);
         oitavaSlider.setMinorTickCount(REMOVE_MINOR_TICK);
         oitavaSlider.valueProperty().bindBidirectional(Musica.oitavaProperty());
-        
+
+        //Combo box = caixas de selecao
         ComboBox<String> sequenciaInstrumentos = new ComboBox<>();
         String[] nomesInstrumentos = Instrumentos.obterNomesInstrumentos();
         int[] midiInstrumentos = Instrumentos.obterInstrumentos();
